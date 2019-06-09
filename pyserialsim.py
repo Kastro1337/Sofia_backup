@@ -12,21 +12,21 @@ while True:
     ipo = str(input('Digite sair para feixar a porta ')).upper()
 
     
-    if ipo == '1':
-        ser.write(b'\x01')      # Escreve 1 ( deliga o 
+    if ipo == '0':
+        ser.write(b'\x00')      # desliga r1
 
 
-    elif ipo == '0':
-        ser.write(b'\x00')     # Escreve 0
+    elif ipo == '1':
+        ser.write(b'\x01')     # liga r1
 
 
     if ipo == '2':
-          ser.write(b'\x02')  # Escreve 2 (liga o rele2
+          ser.write(b'\x02')  # 
         
 
 
     elif ipo == '3':
-        ser.write (b'\x03') # Escreve 3(desliga rele2
+        ser.write (b'\x03') 
 
 
     if ipo == '4':

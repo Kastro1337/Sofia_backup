@@ -46,10 +46,17 @@ while True:
         quit()
 
     #------------------------------------------------------------------------------------------------
-    elif fala.lower() == 'ligar luz' or fala.lower() == "ligue a luz":  ser.write(b"\x01")
+    elif  "lig" in fala or 'acend' in fala:
+        if 'luz' in fala or 'rele 1' in fala: ser.write(b"\x01")
+        #if 'ventilador' in fala or rele 2 in fala: ser.write(b'\x03')
+        #
+        #
 
-    elif fala.lower() == "desligar luz" or fala.lower() == "desligue a luz":     ser.write(b"\x00")
-
+    elif "deslig" in fala or 'apag' in fala:
+        if 'luz' in fala or 'rele 1': ser.write(b"\x00")
+        #if 'ventilador' in fala or rele 2 in fala: ser.write(b'\x02')
+        #
+        #
         
     #------------------------------------------------------------------------------------------------
     elif fala.lower() == 'configurações': config_ = Configurações.Config('editar')
