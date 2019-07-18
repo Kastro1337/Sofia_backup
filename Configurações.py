@@ -2,33 +2,26 @@
 # -*- coding: utf-8 -*-
 
 
-linguagem = 'pt-BR'
-reconhecimento = 2
-lig_c = 0 
 
-def Config(x):
-    global lig_c
-    global linguagem 
+reconhecimento = 2
+
+
+def Config(x = 'default'):
+    
     global reconhecimento
     
     if x == 'default':
-        return (reconhecimento , linguagem)
-
+        return (reconhecimento)  #Configurações Padrão ( Reconhecimento por voz , em PT-Br)
+#---------------------------------------------------------------------------------------------------------------------------------------------------------
     elif x == 'editar':
-        print('\n' * 40)
-        print ('--' * 30)
+    
+        print ('\n' * 40 , '--' * 30, )
         print(' Configurações do programa - Pessione o numero correspondente para alterar as conguraçoes')
-        print('(1) - Ligar/desligar   Reconhecimento de voz \n(2) - Portugues/Ingles  \n(Sair) - Para sair')
+        print('(1) - Ligar/desligar   Reconhecimento de voz  \n(Sair) - Para sair')
         con = str(input())
         if con == '1': reconhecimento += 1 # Se for impar Alterna entre ativo e não ativo
-        elif con == '2' :  lig_c += 1
-        elif con.lower == 'sair' : None        
-
-
-        if lig_c % 2 == 0:
-            linguagem = 'pt-BR'
-        
-        else:
-            linguagem = "en-US"
-
-    return (reconhecimento, linguagem)  
+        elif con.lower() == 'sair' : None
+        else: Config('editar')
+#-------------------------------------------------------------------------------------------------------------------------------------------------------
+    if reconhecimento % 2 == 0: return 'Voz'
+    else: return 'Texto'
