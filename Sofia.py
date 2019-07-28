@@ -1,9 +1,11 @@
-import ConfiguraÃ§Ãµes 
+# -*- coding: cp1252 -*-
+import Configurações 
 import Recognizer
 from chatterbot import ChatBot
 from chatterbot.trainers import ListTrainer
 import serial
-config_ = ConfiguraÃ§Ãµes.Config() #Default
+from tts_Dispatch import BERRO
+config_ = Configurações.Config() #Default
 
 print('-' *100)
 nome_do_bot = str(input('Como deseja que Bot se chame: '))
@@ -11,11 +13,11 @@ print('-' *100)
 
 
 try:
-    porta = str(input('Digite a porta em que estÃ¡ conectado seu arduino '))
+    porta = str(input('Digite a porta em que está conectado seu arduino '))
     ser = serial.Serial(porta.upper())  # Abre uma porta
 
 except:
-    porta = str(input(porta + ' nÃ£o Ã© uma porta valida, digite-a novamente: '))
+    porta = str(input(porta + ' não é uma porta valida, digite-a novamente: '))
     ser = serial.Serial(porta.upper())
 
 
@@ -23,14 +25,14 @@ except:
 bot = ChatBot(nome_do_bot)          
 trainer = ListTrainer(bot)                  
 trainer.train([
-   'OlÃ¡!',
-   "Como posso ajuda-lo?",                                                     
-   ' ',                                                                                             
-   '...'                                                                                            
+   'Olá!',
+   "Como posso ajudÁ-lo?",                                                     
+   '',                                                                                             
+   'Bom dia'                                                                                            
  ])                                                                                                 
                                                                                                     
 #-----------------------------------------------------------------------------------
-print ("Diga OlÃ¡!: ")
+print ("Diga Olá!: ")
 while True:
 
     
@@ -41,13 +43,13 @@ while True:
     else: fala = str(input('Digite sua fala ')) # String de texto (modo sem voz)
 
     
-    print("VocÃª: "+fala)
+    print("Você: "+fala)
  
 
     #------------------------------------------------------------------------------------------------
     if "deslig" in fala.lower() or 'apag' in fala.lower():
         if 'luz' in fala.lower() or 'rele um' in fala.lower(): ser.write(b"\x00")
-        if 'ventilador' in fala.lower() or 'rele dois' in fala.lower(): ser.write(b'\x02')   
+        if 'ventilador' in fala.lower() or 'rele dois' in fala.lower(): ser.write(b'\x02')
         #
         #
     
@@ -60,7 +62,7 @@ while True:
 
         
     #------------------------------------------------------------------------------------------------
-    elif fala.lower() == 'configuraÃ§Ãµes': config_ = ConfiguraÃ§Ãµes.Config('editar')
+    elif fala.lower() == 'configurações': config_ = Configurações.Config('editar')
 
     if fala.lower() == 'tchau': quit()
 
@@ -69,4 +71,5 @@ while True:
     else:
         resp = bot.get_response(fala)
         print(nome_do_bot ,':', resp)
+        Berro(resp)
         

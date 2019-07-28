@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-import serial
 import speech_recognition as sr
 import Configurações
+import tts_Dispatch as tts
 recog = sr.Recognizer()
 
 
@@ -21,6 +21,7 @@ def Fala():
     
     except:
         print('Desculpe , não entendi')
+        tts.BERRO('Desculpe, não entendi')
         fala = ' '
         return(fala)
 
