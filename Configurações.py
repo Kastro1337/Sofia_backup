@@ -11,7 +11,7 @@ def Config(x = 'default'):
     global reconhecimento
     
     if x == 'default':
-        return (reconhecimento)  #Configurações Padrão ( Reconhecimento por voz , em PT-Br)
+        return ('Voz')  #Configurações Padrão ( Reconhecimento por voz , em PT-Br)
 #---------------------------------------------------------------------------------------------------------------------------------------------------------
     elif x == 'editar':
     

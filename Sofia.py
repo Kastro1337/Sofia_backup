@@ -1,55 +1,56 @@
-# -*- coding: cp1252 -*-
-import Configurações 
+import ConfiguraÃ§Ãµes 
 import Recognizer
 from chatterbot import ChatBot
 from chatterbot.trainers import ListTrainer
 import serial
-from tts_Dispatch import BERRO
-config_ = Configurações.Config() #Default
+config_ = ConfiguraÃ§Ãµes.Config() #Default
+loop = 0
 
 print('-' *100)
 nome_do_bot = str(input('Como deseja que Bot se chame: '))
 print('-' *100)
 
-
-try:
-    porta = str(input('Digite a porta em que está conectado seu arduino '))
-    ser = serial.Serial(porta.upper())  # Abre uma porta
-
-except:
-    porta = str(input(porta + ' não é uma porta valida, digite-a novamente: '))
-    ser = serial.Serial(porta.upper())
+while loop != 1:
+    try:
+        porta = str(input('Digite a porta em que estÃ¡ conectado seu arduino '))
+        ser = serial.Serial(porta.upper())  # Abre uma porta
+        loop = 1
+    except:
+        print(porta + ' nÃ£o Ã© uma porta valida, digite-a novamente: ')
+        
+        
 
 
 #------------------Treinamento_do_bot---------------------------------
 bot = ChatBot(nome_do_bot)          
 trainer = ListTrainer(bot)                  
 trainer.train([
-   'Olá!',
-   "Como posso ajudÁ-lo?",                                                     
-   '',                                                                                             
-   'Bom dia'                                                                                            
+   'OlÃ¡!',
+   "Como posso ajuda-lo?",                                                     
+   ' ',                                                                                             
+   '...'                                                                                            
  ])                                                                                                 
                                                                                                     
 #-----------------------------------------------------------------------------------
-print ("Diga Olá!: ")
+print ("Diga OlÃ¡!: ")
 while True:
 
     
     if  config_ ==  'Voz':
         print('Ouvindo \n')
         fala = Recognizer.Fala()  # Reconhecimento de voz
+
         
     else: fala = str(input('Digite sua fala ')) # String de texto (modo sem voz)
 
     
-    print("Você: "+fala)
+    print("VocÃª: "+fala)
  
 
-    #------------------------------------------------------------------------------------------------
+#------------------------------------------------------------------------------------------------
     if "deslig" in fala.lower() or 'apag' in fala.lower():
         if 'luz' in fala.lower() or 'rele um' in fala.lower(): ser.write(b"\x00")
-        if 'ventilador' in fala.lower() or 'rele dois' in fala.lower(): ser.write(b'\x02')
+        if 'ventilador' in fala.lower() or 'rele dois' in fala.lower(): ser.write(b'\x02')   
         #
         #
     
@@ -62,7 +63,7 @@ while True:
 
         
     #------------------------------------------------------------------------------------------------
-    elif fala.lower() == 'configurações': config_ = Configurações.Config('editar')
+    elif fala.lower() == 'configuraÃ§Ãµes': config_ = ConfiguraÃ§Ãµes.Config('editar')
 
     if fala.lower() == 'tchau': quit()
 
@@ -71,5 +72,4 @@ while True:
     else:
         resp = bot.get_response(fala)
         print(nome_do_bot ,':', resp)
-        Berro(resp)
         

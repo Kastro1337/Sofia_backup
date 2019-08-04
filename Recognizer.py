@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
+import serial
 import speech_recognition as sr
 import Configurações
-import tts_Dispatch as tts
 recog = sr.Recognizer()
 
 
@@ -14,14 +14,12 @@ def Fala():
     
 
     try:    
-        linguagem = Configurações.Config('x')
-        #print(linguagem[1])
-        fala = recog.recognize_google(audio, language = linguagem[1])
+    
+        fala = recog.recognize_google(audio, language = 'pt-BR')
         return(fala)
     
-    except:
-        print('Desculpe , não entendi')
-        tts.BERRO('Desculpe, não entendi')
+    except sr.UnknownValueError:
+        print('Desculpe, não entendi')
         fala = ' '
         return(fala)
 
