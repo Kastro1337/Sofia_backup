@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
-import serial
 import speech_recognition as sr
-import Configurações
 recog = sr.Recognizer()
 
 
