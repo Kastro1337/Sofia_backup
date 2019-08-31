@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+from sys import path
+path.append('desfuncs/')
 import Configurações 
 import Recognizer
 from chatterbot import ChatBot
@@ -27,8 +30,22 @@ trainer = ListTrainer(bot)
 trainer.train([
    'Olá!',
    "Como posso ajuda-lo?",                                                     
-   ' ',                                                                                             
-   '...'                                                                                            
+   'Bom dia',                                                                                             
+   'Tudo bem?'
+   'Como?'
+   'Sim'
+   'Não'
+   'Bom'
+   'Ruim'
+   'Com certeza'
+   'Claro'
+   'Negativo'
+   'Claro que não'
+   'Boa noite'
+   'Boa tarde'
+   'RETARDED'
+   'Nazismo'
+   'Suicidio, eu apoio!'
  ])                                                                                                 
                                                                                                     
 #-----------------------------------------------------------------------------------
