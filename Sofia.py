@@ -3,6 +3,7 @@ from sys import path
 path.append('desfuncs/')
 import Configurações 
 import Recognizer
+import Pesquisa
 from chatterbot import ChatBot
 from chatterbot.trainers import ListTrainer
 import serial
@@ -83,7 +84,10 @@ while True:
     elif fala.lower() == 'configurações': config_ = Configurações.Config('editar')
 
     if fala.lower() == 'tchau': quit()
-
+        
+    elif 'pesquise sobre' in fala.lower():
+        fala = fala.strip('pesquise sobre')
+        Pesquisa.pesquisa(fala)    
 
     
     else:
