@@ -1,74 +1,47 @@
-# -*- coding: utf-8 -*-
-from sys import path
-path.append('desfuncs/')
-import ConfiguraÃ§Ãµes 
+# -*- coding: cp1252 -*-
+import Configurações
+import Pesqusia
 import Recognizer
-import Pesquisa
-from chatterbot import ChatBot
-from chatterbot.trainers import ListTrainer
+import Resposta
 import serial
-config_ = ConfiguraÃ§Ãµes.Config() #Default
-loop = 0
+from Tts import BERRO
+
+config_ = Configurações.Config() #Default
+
 
 print('-' *100)
 nome_do_bot = str(input('Como deseja que Bot se chame: '))
 print('-' *100)
 
-while loop != 1:
-    try:
-        porta = str(input('Digite a porta em que estÃ¡ conectado seu arduino '))
-        ser = serial.Serial(porta.upper())  # Abre uma porta
-        loop = 1
-    except:
-        print(porta + ' nÃ£o Ã© uma porta valida, digite-a novamente: ')
-        
-        
+
+try:
+    porta = str(input('Digite a porta em que está conectado seu arduino '))
+    ser = serial.Serial(porta.upper())  # Abre uma porta
+
+except:
+    porta = str(input(porta + ' não é uma porta valida, digite-a novamente: '))
+    ser = serial.Serial(porta.upper())
 
 
-#------------------Treinamento_do_bot---------------------------------
-bot = ChatBot(nome_do_bot)          
-trainer = ListTrainer(bot)                  
-trainer.train([
-   'OlÃ¡!',
-   "Como posso ajuda-lo?",                                                     
-   'Bom dia',                                                                                             
-   'Tudo bem?'
-   'Como?'
-   'Sim'
-   'NÃ£o'
-   'Bom'
-   'Ruim'
-   'Com certeza'
-   'Claro'
-   'Negativo'
-   'Claro que nÃ£o'
-   'Boa noite'
-   'Boa tarde'
-   'RETARDED'
-   'Nazismo'
-   'Suicidio, eu apoio!'
- ])                                                                                                 
-                                                                                                    
-#-----------------------------------------------------------------------------------
-print ("Diga OlÃ¡!: ")
+
+print ("Diga Olá!: ")
 while True:
 
     
     if  config_ ==  'Voz':
         print('Ouvindo \n')
         fala = Recognizer.Fala()  # Reconhecimento de voz
-
         
     else: fala = str(input('Digite sua fala ')) # String de texto (modo sem voz)
 
     
-    print("VocÃª: "+fala)
+    print("Você: "+fala)
  
 
-#------------------------------------------------------------------------------------------------
+    #------------------------------------------------------------------------------------------------
     if "deslig" in fala.lower() or 'apag' in fala.lower():
         if 'luz' in fala.lower() or 'rele um' in fala.lower(): ser.write(b"\x00")
-        if 'ventilador' in fala.lower() or 'rele dois' in fala.lower(): ser.write(b'\x02')   
+        if 'ventilador' in fala.lower() or 'rele dois' in fala.lower(): ser.write(b'\x02')
         #
         #
     
@@ -81,16 +54,19 @@ while True:
 
         
     #------------------------------------------------------------------------------------------------
-    elif fala.lower() == 'configuraÃ§Ãµes': config_ = ConfiguraÃ§Ãµes.Config('editar')
-
-    if fala.lower() == 'tchau': quit()
-        
     elif 'pesquise sobre' in fala.lower():
         fala = fala.strip('pesquise sobre')
         Pesquisa.pesquisa(fala)    
 
+        
+    elif fala.lower() == 'configurações': config_ = Configurações.Config('editar')
+
+    if fala.lower() == 'tchau': quit()
+
+
     
     else:
-        resp = bot.get_response(fala)
+        maquinaApredendo(fala)
         print(nome_do_bot ,':', resp)
+        BERRO(resp)
         
