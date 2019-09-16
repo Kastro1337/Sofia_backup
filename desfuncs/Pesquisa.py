@@ -1,4 +1,3 @@
-#Pesquisa bixo Kkkkkkkkkkkkkkkk
 from googlesearch import search
 import webbrowser
 

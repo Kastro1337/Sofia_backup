@@ -1,4 +1,6 @@
 # -*- coding: cp1252 -*-
+from sys import path
+path.append('desfuncs/')
 import Configurações
 import Pesqusia
 import Recognizer
